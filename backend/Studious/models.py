@@ -8,8 +8,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     school = models.CharField(max_length=100)
     major = models.CharField(max_length=100)
-    year = models.CharField(max_length=100)
-    # Additional fields if needed, other than first_name, last_name, email
+    year = models.IntegerField(max_length=100)
 
 
 class StudySession(models.Model):
