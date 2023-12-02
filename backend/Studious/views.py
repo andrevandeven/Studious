@@ -46,12 +46,19 @@ class StudySessionList(generics.ListCreateAPIView):
 
 class UserRegistrationView(views.APIView):
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
+        user_serializer = UserSerializer(data=request.data)
+        if user_serializer.is_valid():
+            user = user_serializer.save()
+            UserProfile.objects.create(
+                user=user,
+                school=request.data.get("school", ""),
+                major=request.data.get("major", ""),
+                year=request.data.get("year", None),
+            )
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserLoginView(views.APIView):
