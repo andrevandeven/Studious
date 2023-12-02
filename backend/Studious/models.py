@@ -6,9 +6,9 @@ from django.dispatch import receiver
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    school = models.CharField(max_length=100)
-    major = models.CharField(max_length=100)
-    year = models.IntegerField()
+    school = models.CharField(max_length=100, blank=True)
+    major = models.CharField(max_length=100, blank=True)
+    year = models.IntegerField(blank=True, null=True)
 
 
 class StudySession(models.Model):

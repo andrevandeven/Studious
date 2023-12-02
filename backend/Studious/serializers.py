@@ -9,10 +9,19 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class AttendeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username"]
+
+
 class StudySessionSerializer(serializers.ModelSerializer):
+    attendees = AttendeeSerializer(many=True, read_only=True, source="attendees.all")
+
     class Meta:
         model = StudySession
-        fields = "__all__"
+        fields = ["class_name", "attendees", "description"]
+        extra_kwargs = {"attendees": {"required": False}, "poster": {"required": False}}
 
 
 class UserSerializer(serializers.ModelSerializer):
