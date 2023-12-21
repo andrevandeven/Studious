@@ -3,12 +3,12 @@ from . import views
 
 urlpatterns = [
     path(
-        "Studious/userprofiles/",
+        "userprofiles/",
         views.UserProfileList.as_view(),
         name="userprofile-list",
     ),
     path(
-        "Studious/studysessions/",
+        "studysessions/",
         views.StudySessionList.as_view(),
         name="studysession-list",
     ),

@@ -6,11 +6,13 @@ from django.contrib.auth.models import User
 class UserProfileSerializer(serializers.ModelSerializer):
     user_first_name = serializers.CharField(source="user.first_name", read_only=True)
     user_last_name = serializers.CharField(source="user.last_name", read_only=True)
+    username = serializers.CharField(source="user.username", read_only=True)
 
     class Meta:
         model = UserProfile
         fields = (
             "user",
+            "username",
             "school",
             "major",
             "year",
@@ -27,10 +29,11 @@ class AttendeeSerializer(serializers.ModelSerializer):
 
 class StudySessionSerializer(serializers.ModelSerializer):
     attendees = AttendeeSerializer(many=True, read_only=True, source="attendees.all")
+    attendee_count = serializers.IntegerField(source="attendees.count", read_only=True)
 
     class Meta:
         model = StudySession
-        fields = ["class_name", "attendees", "description", "session_time", "location"]
+        fields = ["class_name", "attendees", "description", "session_time", "location", "attendee_count"]
         extra_kwargs = {
             "attendees": {"required": False},
             "poster": {"required": False},
