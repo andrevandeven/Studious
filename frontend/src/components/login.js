@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -43,6 +43,9 @@ const Login = () => {
                     style={styles.input}
                 />
                 <button type="submit" style={styles.button}>Continue</button>
+                <p style={styles.registerText}>
+                    Don't have an account? <Link to="/register" style={styles.registerLink}>Sign up here</Link>
+                </p>
             </form>
         </div>
     );
@@ -84,7 +87,16 @@ const styles = {
         borderRadius: '4px',
         cursor: 'pointer',
         marginTop: '10px',
-    }
+    },
+    registerText: {
+        marginTop: '12px',
+        fontSize: '12px',
+        color: '#033563', // Adjust color as needed
+    },
+    registerLink: {
+        color: '#033563', // Adjust link color as needed
+        textDecoration: 'underline',
+    },
 };
 
 export default Login;
